@@ -9,6 +9,6 @@ build:
 
 run:
   runtime-version: 3.11
-  command: streamlit run PtoCalc.py --server.port 8080 --server.address 0.0.0.0
+  command: python -m streamlit run PtoCalc.py --server.port 8080 --server.address 0.0.0.0
   network:
     port: 8080
