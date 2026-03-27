@@ -4,7 +4,15 @@ from datetime import date, timedelta
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="PTO Calculator", layout="wide")
+st.set_page_config(
+    page_title="PTO Planner",
+    page_icon=":calendar:",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        "About": "PTO Planner helps estimate weekly PTO balances using your accrual schedule, holidays, and planned time off.",
+    },
+)
 
 FREQUENCY_TO_WEEKS = {
     "week": 1.0,
@@ -757,7 +765,7 @@ for session_key in TIME_OFF_FORM_FIELDS.values():
         reset_time_off_form(st.session_state.start_date)
         break
 
-st.title("PTO Calculator")
+st.title("PTO Planner")
 st.caption("Track weekly PTO balances and account for your real work schedule.")
 st.markdown(
     """
