@@ -576,7 +576,6 @@ export default function App() {
     <div className="app-shell">
       <header className="hero">
         <div>
-          <p className="eyebrow">Static React Rewrite</p>
           <h1>PTO Planner</h1>
           <p className="hero-copy">Track weekly PTO balances with your real work schedule, holidays, caps, rollover rules, and planned time off.</p>
         </div>
@@ -1108,6 +1107,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
