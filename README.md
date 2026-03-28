@@ -1,19 +1,26 @@
 # PtoCalc
 
-This is a PTO calculator to track how many hours or days you will have after using planned PTO.
+PtoCalc is a PTO planning tool that projects weekly balances using accrual rules, PTO caps, rollover limits, work schedules, holidays, and planned time off.
 
-## AWS App Runner
+## React App
 
-This repo includes the basics needed to deploy the app to AWS App Runner from a private GitHub repository:
+The primary app is now a React + TypeScript single-page app intended for static hosting.
 
-- `requirements.txt` with pinned Python dependencies
-- `apprunner.yaml` with the App Runner build and run settings
-- `.streamlit/config.toml` with a minimal toolbar configuration
-
-The app starts with:
+### Local development
 
 ```bash
-streamlit run PtoCalc.py --server.port 8080 --server.address 0.0.0.0
+npm install
+npm run dev
 ```
 
-When creating the App Runner service, point it at this repository and branch, then let App Runner read `apprunner.yaml`.
+### Production build
+
+```bash
+npm run build
+```
+
+Amplify Hosting can build the app from this repo using `amplify.yml`.
+
+## Legacy Streamlit App
+
+`PtoCalc.py` is still in the repo as a reference implementation while the React version is validated for parity.
