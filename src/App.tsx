@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode, startTransition, useEffect, useId, useRef, useState } from "react";
+import { ChangeEvent, ReactNode, useEffect, useId, useRef, useState } from "react";
 import {
   AppStateShape,
   EntryDetailRow,
@@ -64,6 +64,12 @@ function buildDefaultTimeOffForm(state: AppStateShape): TimeOffFormState {
   };
 }
 
+function formatOptionLabel(value: string): string {
+  return value
+    .split(" ")
+    .map((part) => (part ? part[0].toUpperCase() + part.slice(1) : part))
+    .join(" ");
+}
 function ptoFormFromRecord(record: PTOTypeRecord): PTOFormState {
   return {
     name: record.name,
@@ -338,9 +344,7 @@ export default function App() {
   }, [appState]);
 
   function updateState(updater: (current: AppStateShape) => AppStateShape) {
-    startTransition(() => {
-      setAppState((current) => updater(current));
-    });
+    setAppState((current) => updater(current));
   }
 
   function showMessage(message: string) {
@@ -779,8 +783,8 @@ export default function App() {
                     value={ptoForm.balance_unit}
                     onChange={(event) => setPtoForm((current) => ({ ...current, balance_unit: event.target.value as PTOFormState["balance_unit"] }))}
                   >
-                    <option value="hours">hours</option>
-                    <option value="days">days</option>
+                    <option value="hours">Hours</option>
+                    <option value="days">Days</option>
                   </select>
                 </label>
                 <label className="field">
@@ -799,8 +803,8 @@ export default function App() {
                     value={ptoForm.accrual_unit}
                     onChange={(event) => setPtoForm((current) => ({ ...current, accrual_unit: event.target.value as PTOFormState["accrual_unit"] }))}
                   >
-                    <option value="hours">hours</option>
-                    <option value="days">days</option>
+                    <option value="hours">Hours</option>
+                    <option value="days">Days</option>
                   </select>
                 </label>
                 <label className="field">
@@ -809,22 +813,22 @@ export default function App() {
                     value={ptoForm.accrual_frequency}
                     onChange={(event) => setPtoForm((current) => ({ ...current, accrual_frequency: event.target.value as PTOTypeRecord["accrual_frequency"] }))}
                   >
-                    <option value="week">week</option>
-                    <option value="every 2 weeks">every 2 weeks</option>
-                    <option value="twice a month">twice a month</option>
-                    <option value="month">month</option>
-                    <option value="year">year</option>
+                    <option value="week">Week</option>
+                    <option value="every 2 weeks">Every 2 Weeks</option>
+                    <option value="twice a month">Twice a Month</option>
+                    <option value="month">Month</option>
+                    <option value="year">Year</option>
                   </select>
                 </label>
               </div>
 
               <div className="two-grid">
                 <label className="field">
-                  <span>Accrual cap ({ptoForm.balance_unit}, blank = none)</span>
+                  <span>Accrual cap ({formatOptionLabel(ptoForm.balance_unit)}, blank = none)</span>
                   <input value={ptoForm.accrual_cap} onChange={(event) => setPtoForm((current) => ({ ...current, accrual_cap: event.target.value }))} />
                 </label>
                 <label className="field">
-                  <span>Rollover limit ({ptoForm.balance_unit}, blank = unlimited)</span>
+                  <span>Rollover limit ({formatOptionLabel(ptoForm.balance_unit)}, blank = unlimited)</span>
                   <input value={ptoForm.rollover_limit} onChange={(event) => setPtoForm((current) => ({ ...current, rollover_limit: event.target.value }))} />
                 </label>
               </div>
@@ -856,10 +860,10 @@ export default function App() {
                       <tr key={item.name}>
                         <td>{item.name}</td>
                         <td>{item.current_balance}</td>
-                        <td>{item.balance_unit}</td>
+                        <td>{formatOptionLabel(item.balance_unit)}</td>
                         <td>{item.accrual_amount}</td>
-                        <td>{item.accrual_unit}</td>
-                        <td>{item.accrual_frequency}</td>
+                        <td>{formatOptionLabel(item.accrual_unit)}</td>
+                        <td>{formatOptionLabel(item.accrual_frequency)}</td>
                         <td>{item.accrual_cap ?? "-"}</td>
                         <td>{item.rollover_limit ?? "-"}</td>
                       </tr>
@@ -1107,6 +1111,10 @@ export default function App() {
     </div>
   );
 }
+
+
+
+
 
 
 
